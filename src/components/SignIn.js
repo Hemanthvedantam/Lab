@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -26,11 +29,26 @@ export default function SignIn() {
 
     if (email === storedEmail && password === storedPassword) {
       alert('Login successful!');
-      window.location.href = '/dashboard';
+      navigate('/dashboard');
     } else {
       alert('Invalid email or password');
     }
   };
+
+  useEffect(() => {
+    const preventBackNavigation = () => {
+      window.history.pushState(null, null, window.location.href);
+    };
+
+    // Add a history state to prevent backward/forward navigation
+    preventBackNavigation();
+    window.addEventListener('popstate', preventBackNavigation);
+
+    return () => {
+      // Clean up the event listener
+      window.removeEventListener('popstate', preventBackNavigation);
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>

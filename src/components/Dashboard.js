@@ -19,7 +19,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh', backgroundColor: '#f7f9fc' }}>
+    <Box sx={{ display: 'flex', height: '100vh', backgroundColor: '#eef2f9' }}>
       {/* Sidebar */}
       <Box
         onMouseEnter={handleMouseEnter}
@@ -27,28 +27,29 @@ export default function Dashboard() {
         sx={{
           width: sidebarOpen ? '280px' : '70px',
           transition: 'width 0.3s',
-          backgroundColor: '#283593',
+          backgroundColor: '#2c3e50',
           padding: sidebarOpen ? '30px 20px' : '30px 10px',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
-          boxShadow: '3px 0 10px rgba(0,0,0,0.2)',
+          boxShadow: '3px 0 15px rgba(0,0,0,0.3)',
         }}
       >
         <Typography
-          variant="h5"
+          variant="h4"
           sx={{
             fontWeight: 'bold',
             marginBottom: '20px',
             textAlign: sidebarOpen ? 'center' : 'left',
-            fontSize: sidebarOpen ? '1.5rem' : '1rem',
+            fontSize: sidebarOpen ? '1.7rem' : '1rem',
             transition: 'font-size 0.3s',
+            color: '#f1c40f',
           }}
         >
           {sidebarOpen ? 'AgriDashboard' : 'AD'}
         </Typography>
-        <Divider sx={{ backgroundColor: '#5c6bc0', marginBottom: '20px' }} />
+        <Divider sx={{ backgroundColor: '#34495e', marginBottom: '20px' }} />
 
         <Stack
           direction="column"
@@ -60,12 +61,15 @@ export default function Dashboard() {
               justifyContent: sidebarOpen ? 'flex-start' : 'center',
               padding: '10px 20px',
               borderRadius: '10px',
+              transition: 'all 0.3s',
               '&:hover': {
-                backgroundColor: '#3949ab',
+                backgroundColor: '#1abc9c',
+                transform: 'scale(1.05)',
               },
               '&.active': {
-                backgroundColor: '#1e88e5',
+                backgroundColor: '#16a085',
                 fontWeight: 'bold',
+                borderLeft: sidebarOpen ? '5px solid #f1c40f' : 'none',
               },
             },
           }}
@@ -89,7 +93,7 @@ export default function Dashboard() {
             to="/dashboard/farmer"
             className={location.pathname === '/dashboard/farmer' ? 'active' : ''}
           >
-            {sidebarOpen ? 'Farmer' : 'F'}
+            {sidebarOpen ? 'Farmers' : 'F'}
           </Button>
           <Button
             component={Link}
@@ -107,25 +111,62 @@ export default function Dashboard() {
           </Button>
         </Stack>
 
-        <Divider sx={{ backgroundColor: '#5c6bc0', margin: '20px 0' }} />
+        <Divider sx={{ backgroundColor: '#34495e', margin: '20px 0' }} />
         <Typography
           variant="body2"
           sx={{
             textAlign: 'center',
-            color: '#b0bec5',
+            color: '#95a5a6',
             fontSize: sidebarOpen ? '0.875rem' : '0.7rem',
           }}
         >
-          © 2024 AgriCorp
+          © 2024 AgriCorp - Empowering Farmers
         </Typography>
       </Box>
 
       {/* Main Content Area */}
-      <Box sx={{ flex: 1, padding: '30px', overflowY: 'auto' }}>
+      <Box
+        sx={{
+          flex: 1,
+          padding: '30px',
+          overflowY: 'auto',
+          backgroundColor: '#f7f9fc',
+        }}
+      >
         <Routes>
           <Route
             path="/"
-            element={<Typography variant="h4">Welcome to the Dashboard</Typography>}
+            element={
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: '#2c3e50',
+                    fontWeight: 'bold',
+                    marginBottom: '10px',
+                  }}
+                >
+                  Welcome to AgriDashboard
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: '#7f8c8d',
+                    marginBottom: '20px',
+                  }}
+                >
+                  Your one-stop platform for managing your crops, tracking market trends, and growing smarter.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#34495e',
+                  }}
+                >
+                  Explore crop insights, get market updates, connect with the farming community, and access modern farming solutions—all in one place.
+                </Typography>
+              </Box>
+            }
           />
           <Route path="crops" element={<Crops />} />
           <Route path="farmer" element={<Farmer />} />
